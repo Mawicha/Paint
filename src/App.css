@@ -1,0 +1,14 @@
+.App {
+  color: white;
+  text-align: center;
+  align-items: center;
+}
+* {
+  background-color: #263238;
+ }
+
+ button {
+   background-color: white;
+   border-color: violet;
+ }
+
