@@ -12,3 +12,9 @@ button {
   #pallete{
     border: 5px solid #263238;
   }
+
+  p {
+    font-weight: bolder;
+    font-size: xx-large;
+    color: lightpink;
+  }

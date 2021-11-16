@@ -52,7 +52,8 @@ function Panel(props) {
                                     /* estilo del pixel */
                                     name={pixel.id}
                                     key={pixel.id}
-                                    onMouseOver={continued}                                    style={{
+                                    onMouseOver={continued}                                    
+                                    style={{
                                         width: pixel.width,
                                         height: pixel.height,
                                         backgroundColor: pixel.pixcolor,

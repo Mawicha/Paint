@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App"
 import "./ColorPicker.css"
 import axios from "axios";
@@ -9,53 +9,58 @@ import {
         COMPLETE_STATUS,
 } from './Utils/constants'
 
+
 /* Arreglo de colores, se agregan los necesarios */
-/* Es parte del código sin API */
-const colors = ['#000000', '#FFFFFF', '#607D8B', '#ABB8C3', '#D0021B', '#F44336','#FF9800', '#009688', '#4CAF50', '#7ED321', '#4A90E2', '#8ED1FC', '#50E3C2', '#BD10E0', '#FA28FF', '#F78DA7', '#E91E63', '#C45100', '#795548','#FFC107', '#FFE0B2', ];
+/* const colors = ['#000000', '#FFFFFF', '#607D8B', '#ABB8C3', '#D0021B', '#F44336','#FF9800', '#009688', '#4CAF50', '#7ED321', '#4A90E2', '#8ED1FC', '#50E3C2', '#BD10E0', '#FA28FF', '#F78DA7', '#E91E63', '#C45100', '#795548','#FFC107', '#FFE0B2', ]; */
+
+/* Arreglo de colores cambiante */
+let colors = [];
 
 function ColorPicker(props) {
+    {/* Cambio de estado en Status */}
     const [status, setStatus] = useState(IDLE_STATUS);
-    const [selecColor,setSelecColor] = useState([]);
 
+    {/* Función asíncrona para llamar a la API */}
     const changeColor = async () => {
-        axios.get('http://www.colr.org/json/colors/random/7').then(response => {
+        {/* Llamada a la API con el url, s en https -> llamada segura */}
+        axios.get('https://www.colr.org/json/colors/random/7').then(response => {
             setStatus(LOADING_STATUS);
-            console.log(response);
-            const getColor=[];
-            for(let i = 0; i<7 ; i++) {
-                getColor.push('#' + response.data.colors[i].hex);
+            colors = [];
+            {/* Llenar arreglo colors con los datos de la API */}
+            for(let i = 0; i < 7 ; i++) {
+                {/* Se agrega # para que se pueda leer el color en hexa */}
+                colors.push('#' + response.data.colors[i].hex);
             }
-            setSelecColor(getColor);
             setStatus(COMPLETE_STATUS);
         })
         .catch(() => {
-            console.error("Error al importar la API");
+            console.log('Error al importar la API');
             setStatus(ERROR_STATUS);
         })
     }
 
     useEffect(() => {
         changeColor();
-    }, []);
+    }, 
+    [] /* Evita ciclo infinito */
+    ); 
 
+    {/* Reconoce el color que se escoja al dar click en el Color Picker */}
     const handleClick = (event) => {
         props.setSelectedColor(event.target.name);
     }
 
+    {/* Cuando el status = loading -> se esta cargando la API */}
     if(status === LOADING_STATUS || status === IDLE_STATUS) {
-        return 
-        <div>
-            <p>Loading . . .</p>
-        </div>
+        return <p>LOADING . . .</p>
     }
 
+    { /* Cuando hay error al cargar la API o la pagina */}
     if(status === ERROR_STATUS) {
-        return 
-        <div>
-            <p>ERROR!!! Reload the page</p>
-        </div>
+        return <p>ERROR!!! Reload the page</p>
     }
 
+    {/* Si no hay errores, y el status está completo */}
     if(status === COMPLETE_STATUS) {
             return (
                 <ul style={{display: 'flex', listStyle: 'none' }}>
