@@ -4,59 +4,60 @@ import "./App";
 import "./Panel.css"
  
 function Panel(props) {
-   const [pressed, setPressed] =useState(false);
+   const [press, setPress] = useState(false);
 
-   function paintClick(event) {
+   {/* función para pintar los pixeles de uno en uno */}
+   function paintOne(event) {
        props.setMark('filled');
        props.setStateGrid(
            props.stateGrid.map(
                (pixel) => {
                 if (pixel.id === Number(event.target.name))
-                pixel.pxcolor = props.selectedColor;
-            return pixel;
+                pixel.pixcolor = props.selectedColor;
+                return pixel;
                }
            )
        );
    }
 
-   function startPainting(event) {
-       setPressed(true);
-       paintClick(event);
+   {/* función para iniciar el pintado continuo */}
+   function start(event) {
+       setPress(true);
+       paintOne(event);
    }
 
-   function paintPressed(event) {
-       if(!pressed) return
-       paintClick(event);
-   }
-
-   function stopPaint() {
-       setPressed(false);
+   {/* función para detener el pintado continuo */}
+   function stop() {
+       setPress(false);
    }
    
+   {/* función para el pintado continuo */}
+   function continued(event) {
+    if(!press) return
+    paintOne(event);
+    }
+
     return (
         <div id="section">
             <div id="piece" ref={props.ss}>
                 <div id="pixel"
-                onClick={paintClick}
-                onMouseDown={startPainting}
-                onMouseUp={stopPaint}
+                onClick={paintOne}
+                onMouseDown={start}
+                onMouseUp={stop}
                 >
                     {props.stateGrid.map(
                         (pixel) => {
                             return (
                                 <button
+                                    /* estilo del pixel */
                                     name={pixel.id}
                                     key={pixel.id}
-                                    onMouseOver={paintPressed}
-                                    disabled={props.unclick}
-                                    style={{
+                                    onMouseOver={continued}                                    style={{
                                         width: pixel.width,
                                         height: pixel.height,
-                                        border: props.borders === true ? '1px groove #BD10E0' : '0',
-                                        backgroundColor: pixel.pxcolor,
-                                        margin: '1px',
-                                        padding: '1px',
-                                        borderRadius: '0px'
+                                        backgroundColor: pixel.pixcolor,
+                                        borderRadius: '3px',
+                                        margin: '1px'
                                     }}
                                 >
                                 </button>

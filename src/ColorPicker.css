@@ -1,7 +1,7 @@
 button {
     background-color:skyblue;
     border-color:lightblue;
-    font-weight: bolder;
+    font-weight: bold;
     color: #263238;
     font-family: cursive;
     border-radius: 25px;
@@ -11,5 +11,4 @@ button {
  
   #pallete{
     border: 5px solid #263238;
-    border-radius: 15px;
   }

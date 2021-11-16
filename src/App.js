@@ -4,18 +4,23 @@ import ColorPicker from './ColorPicker';
 import Panel from './Panel';
 
 function App() {
-  let grid = [];
-  const [stateGrid, setStateGrid] = useState(grid);
-  const [selectedColor, setSelectedColor] = useState('#FFF')
+  {/* arreglo para generar la cuadricula */}
+  let grid = []; 
+
+  {/* estado de la cuadricula */}
+  const [stateGrid, setStateGrid] = useState(grid); 
+  const [selectedColor, setSelectedColor] = useState('whitesmoke')
   const [mark, setMark] = useState('empty');
 
-  for (let i=1; i<=100; i++) {
-    grid.push({ id: i, pxcolor: 'whitesmoke', height: '38px', width: '38px' });
+  {/* cuadricula de 10x10 generada por ciclo for */}
+  for (let i = 1 ; i <= 100 ; i++) {
+    grid.push({ id: i, pixcolor: 'whitesmoke', height: '38px', width: '38px' });
   }
 
+  {/* función para volver los pixeles al estado inicial */}
   function resetting() {
-    setMark('empty');
     setStateGrid(grid);
+    setMark('empty');
   }
 
   return (
@@ -24,11 +29,13 @@ function App() {
         <h1>Paint App</h1>
         <h3>Choose a color to start your masterpiece</h3>
         
+        {/* Componente selector de color */}
         <ColorPicker
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
         /> 
 
+        {/* Componente para editar la cuadricula */}
         <Panel
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
