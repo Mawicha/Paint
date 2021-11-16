@@ -1,14 +1,10 @@
 .App {
-  color: white;
-  text-align: center;
-  align-items: center;
+  color: powderblue;
+  text-align:center;
 }
+
 * {
   background-color: #263238;
- }
-
- button {
-   background-color: white;
-   border-color: violet;
+  font-family: cursive;
  }
 

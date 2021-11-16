@@ -1,0 +1,15 @@
+button {
+    background-color:skyblue;
+    border-color:lightblue;
+    font-weight: bolder;
+    color: #263238;
+    font-family: cursive;
+    border-radius: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }  
+ 
+  #pallete{
+    border: 5px solid #263238;
+    border-radius: 15px;
+  }
